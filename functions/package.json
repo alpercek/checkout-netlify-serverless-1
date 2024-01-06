@@ -5,7 +5,6 @@
   "author": "Jason Lengstorf <jason@lengstorf.com> (https://lengstorf.com)",
   "license": "MIT",
   "dependencies": {
-    "@mollie/api-client": "^3.7.0",
     "@sendgrid/mail": "^7.0.0",
     "stripe": "^8.39.0"
   }
