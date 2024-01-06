@@ -4,7 +4,7 @@
  *
  * @see https://stripe.com/docs/payments/checkout/one-time
  */
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+const mollieClient = require('@mollie/api-client')(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2020-03-02',
   maxNetworkRetries: 2,
 });
@@ -26,12 +26,12 @@ exports.handler = async (event) => {
   // ensure that the quantity is within the allowed range
   const validatedQuantity = quantity > 0 && quantity < 11 ? quantity : 1;
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await mollieClient.payment.create({
     mode: 'payment',
     payment_method_types: ['card'],
     billing_address_collection: 'auto',
     shipping_address_collection: {
-      allowed_countries: ['US', 'CA'],
+      //allowed_countries: ['US', 'CA'],
     },
 
     /*
@@ -45,7 +45,7 @@ exports.handler = async (event) => {
     line_items: [
       {
         price_data: {
-          currency: 'usd',
+          currency: 'eur',
           unit_amount: product.amount,
           product_data: {
             name: product.name,
